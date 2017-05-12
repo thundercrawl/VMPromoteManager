@@ -56,6 +56,8 @@ public class Config implements Servicable
 
    public final static String LOG_DIR                = "./log";
    public final static String Error_File             = LOG_DIR + "/error.log";
+   public final static String File_DIR               = "./file";
+   public final static String Report_DIR             = File_DIR + "/report";
 
    public final static String TEST_PASS              = "TSL";
 
@@ -69,23 +71,17 @@ public class Config implements Servicable
 
    private static void buildFS()
    {
-      File DBDir = new File(DB_DIR_ROOT);
-      if (!DBDir.exists())
+      String dirs[] = { DB_DIR_ROOT, DB_DIR_HSQL, LOG_DIR, WEB_DIR_PUBLIC, File_DIR, Report_DIR };
+
+      for (String dir : dirs)
       {
-         DBDir.mkdirs();
-         new File(DB_DIR_HSQL).mkdirs();
+         File fdir = new File(dir);
+         if (!fdir.exists())
+         {
+            fdir.mkdirs();
+         }
       }
 
-      File LogDir = new File(LOG_DIR);
-      if (!LogDir.exists())
-      {
-         LogDir.mkdirs();
-      }
-      File webPublicDir = new File(WEB_DIR_PUBLIC);
-      if (!webPublicDir.exists())
-      {
-         webPublicDir.mkdirs();
-      }
    }
 
    private static void setupExceptionStream()

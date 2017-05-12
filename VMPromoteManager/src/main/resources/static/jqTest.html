@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <title>Hello jQuery</title>
+        <script src="http://localhost/jquery.min.js"></script>
+        
+    </head>
+
+<script>
+$(document).ready(function() {
+    $.ajax({
+        url: "/createVM"
+    }).then(function(data) {
+       $('.status').append(data.content);
+       $('.message').append(data.content);
+    });
+});
+</script>
+    <body>
+        <div>
+            <p class="status">The ID is </p>
+            <p class="message">The content is </p>
+        </div>
+    </body>
+</html>

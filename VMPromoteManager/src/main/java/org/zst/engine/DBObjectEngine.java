@@ -46,7 +46,7 @@ public class DBObjectEngine
    private String createColumnSQL(Method m)
    {
       String rt = "";
-      m.getAnnotation(annotationClass)
+      // m.getAnnotation(annotationClass)
       return rt;
    }
 

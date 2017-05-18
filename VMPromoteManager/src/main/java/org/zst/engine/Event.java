@@ -25,7 +25,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.zst.RestService.objects.HttpStatus;
+import org.zst.RestService.objects.RestHttpStatus;
 
 public class Event
 {
@@ -33,7 +33,7 @@ public class Event
    public static long                           EVENT_VM_DELETE  = 0x0002;
    Runnable                                     r                = null;
    private String                               latch;
-   private final static Map<String, HttpStatus> l2rMap           = new HashMap<String, HttpStatus>();
+   private final static Map<String, RestHttpStatus> l2rMap           = new HashMap<String, RestHttpStatus>();
    private final static Map<String, Event>      l2eMap           = new HashMap<String, Event>();
    private static Map<String, Condition>        waitQueue        = new HashMap<String, Condition>();
 
@@ -55,7 +55,7 @@ public class Event
    {
       log.info("set event processing,latch=" + latch);
       this.start = true;
-      l2rMap.get(latch).setMessage(HttpStatus.MESSAGE_PROCESSING);
+      l2rMap.get(latch).setMessage(RestHttpStatus.MESSAGE_PROCESSING);
    }
 
    public String toString()
@@ -82,7 +82,7 @@ public class Event
       log.info("Create event latch=" + latch);
       if (l2eMap.get(latch) == null)
       {
-         l2rMap.put(latch, new HttpStatus(HttpStatus.HTTP_200, HttpStatus.MESSAGE_INITIAL));
+         l2rMap.put(latch, new RestHttpStatus(RestHttpStatus.HTTP_200, RestHttpStatus.MESSAGE_INITIAL));
          l2eMap.put(latch, this);
          waitQueue.put(latch, cd);
          this.r = r;
@@ -96,17 +96,17 @@ public class Event
       l2rMap.remove(latch);
    }
 
-   public HttpStatus getStatus()
+   public RestHttpStatus getStatus()
    {
       synchronized (l2rMap)
       {
-         HttpStatus rt = l2rMap.get(latch);
+         RestHttpStatus rt = l2rMap.get(latch);
          return rt;
       }
 
    }
 
-   public HttpStatus getStatAfterInit(String latch)
+   public RestHttpStatus getStatAfterInit(String latch)
    {
       log.info("event result size=" + l2eMap.size() + ",start=" + l2eMap.get(latch).isStart());
       synchronized (l2eMap)

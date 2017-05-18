@@ -247,7 +247,7 @@ public class VMManagerV3
    public static void main(String[] args) throws IOException
    {
 
-      VMManagerV3.getInstance().createVM("德赛科技云盘-S1");
+      VMManagerV3.getInstance().getAllServerIDs();
    }
 
 }

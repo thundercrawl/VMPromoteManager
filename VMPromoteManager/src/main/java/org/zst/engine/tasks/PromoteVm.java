@@ -20,7 +20,7 @@ package org.zst.engine.tasks;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.zst.RestService.objects.HttpStatus;
+import org.zst.RestService.objects.RestHttpStatus;
 import org.zst.engine.Event;
 
 public class PromoteVm implements Runnable
@@ -44,7 +44,7 @@ public class PromoteVm implements Runnable
          statEvent.SetStart();
 
          Thread.sleep(1000 * 10);
-         statEvent.getStatus().setMessage(HttpStatus.MESSAGE_DONE);
+         statEvent.getStatus().setMessage(RestHttpStatus.MESSAGE_DONE);
          log.debug("Promote VM Finished, latch=" + latch + " start=" + e.getEventByLatch(latch).isStart());
       }
       catch (InterruptedException e)

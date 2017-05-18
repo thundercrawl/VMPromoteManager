@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.zst.RestService.actions.TestAction;
-import org.zst.RestService.objects.HttpStatus;
+import org.zst.RestService.objects.RestHttpStatus;
 import org.zst.engine.zstLogger;
 
 @RestController
@@ -41,21 +41,21 @@ public class RestTestController
    }
 
    @RequestMapping("/test")
-   public HttpStatus test(@RequestParam(value = "pass") String pass, @RequestParam(value = "level") int level,
+   public RestHttpStatus test(@RequestParam(value = "pass") String pass, @RequestParam(value = "level") int level,
                           HttpServletRequest request, HttpServletResponse response)
    {
 
       boolean rt = new TestAction(pass).runTestDataInitite(level);
-      if (rt) return new HttpStatus(HttpStatus.HTTP_200, "TestProcessing");
-      return new HttpStatus(HttpStatus.HTTP_200, "");
+      if (rt) return new RestHttpStatus(RestHttpStatus.HTTP_200, "TestProcessing");
+      return new RestHttpStatus(RestHttpStatus.HTTP_200, "");
 
    }
 
    @RequestMapping("/setLog")
-   public HttpStatus setLog(@RequestParam(value = "package") String pk, @RequestParam(value = "level") String level)
+   public RestHttpStatus setLog(@RequestParam(value = "package") String pk, @RequestParam(value = "level") String level)
    {
       zstLogger.getInstance().setLogger(pk, level);
-      return new HttpStatus(HttpStatus.HTTP_200, "");
+      return new RestHttpStatus(RestHttpStatus.HTTP_200, "");
    }
 
 }
